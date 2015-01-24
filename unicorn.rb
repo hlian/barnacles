@@ -1,4 +1,4 @@
-worker_processes 4
+worker_processes 1
 listen 5000
 preload_app true
 
