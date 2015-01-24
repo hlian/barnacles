@@ -15,7 +15,7 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
     <div class="link has-fancy-underline">
       <% if story.can_be_seen_by_user?(@user) %>
         <a href="<%= story.url_or_comments_url %>">
-          <%= raw(Typogruby.improve(story.title.gsub('<', '&lt;').gsub('>', '&gt;'))) %>
+          <%= raw(Typogruby.improve_ex(story.title.gsub('<', '&lt;').gsub('>', '&gt;'))) %>
         </a>
       <% end %>
       <% if story.is_gone? %>
