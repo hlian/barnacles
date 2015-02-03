@@ -105,7 +105,7 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
             &bull;
             <a class="comments_link <%= story.comments_count > 0 ? 'active' : '' %>" href="<%= @user ? story.comments_url : login_url %>">
               <% if story.comments_count == 0 %>
-              all quiet on the commenting front
+              respectful silence
               <% else %>
               <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %>
               <% end %>
