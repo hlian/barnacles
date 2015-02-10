@@ -16,6 +16,7 @@ Lobsters::Application.routes.draw do
 
       get "/rss" => "home#index", :format => "rss"
       get "/hottest" => "home#index", :format => "html"
+      get "/hottest/page/:page" => "home#index", :format => "html"
 
       get "/page/:page" => "home#newest"
 
