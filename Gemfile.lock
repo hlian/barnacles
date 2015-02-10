@@ -77,6 +77,7 @@ GEM
     minitest (5.5.1)
     multi_json (1.10.1)
     mysql2 (0.3.18)
+    newrelic_rpm (3.10.0.279)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -177,6 +178,7 @@ DEPENDENCIES
   machinist
   mail
   mysql2 (>= 0.3.14)
+  newrelic_rpm
   nokogiri (= 1.6.1)
   oauth
   puma

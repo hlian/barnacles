@@ -45,3 +45,5 @@ gem "world-flags"
 gem "typogruby"
 gem "rack-reverse-proxy"
 gem "puma"
+
+gem "newrelic_rpm"
