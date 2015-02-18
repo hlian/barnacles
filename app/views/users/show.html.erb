@@ -31,8 +31,8 @@
     <% else %>
       Active
     <% end %>
-    <%= @showing_user.is_admin? ? "administrator" :
-      (@showing_user.is_moderator? ? "moderator" : "user") %>
+    <%= @showing_user.is_admin? ? "mayor" :
+      (@showing_user.is_moderator? ? "webmaster" : "user") %>
   </span>
   <br>
 

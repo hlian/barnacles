@@ -81,7 +81,7 @@ config and start server:
 
           lobsters$ rake ts:rebuild
 
-* Create an initial administrator user and at least one tag:
+* Create an initial mayor user and at least one tag:
 
           lobsters$ rails console
           Loading development environment (Rails 3.2.6)

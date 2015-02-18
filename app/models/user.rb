@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
     self.create_mailing_list_token
   end
 
-  BANNED_USERNAMES = [ "admin", "administrator", "hostmaster", "mailer-daemon",
+  BANNED_USERNAMES = [ "admin", "mayor", "hostmaster", "mailer-daemon",
     "postmaster", "root", "security", "support", "webmaster", "moderator",
     "moderators", ]
 

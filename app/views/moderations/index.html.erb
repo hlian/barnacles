@@ -13,8 +13,8 @@
   <% @moderations.each do |mod| %>
     <tr class="row<%= bit %> nobottom">
       <td><%= mod.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-      <td><a href="/messages?to=<%= mod.moderator.try(:username) %>"><%=
-        mod.moderator.try(:username) %></a></td>
+      <td><a href="/messages?to=<%= mod.webmaster.try(:username) %>"><%=
+        mod.webmaster.try(:username) %></a></td>
       <td><% if mod.story %>
           <a href="<%= mod.story.comments_url %>">Story: <%= mod.story.title
             %></a>

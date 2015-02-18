@@ -19,7 +19,7 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
         </a>
       <% end %>
       <% if story.is_gone? %>
-        [Story removed by <%= story.is_moderated? ? "moderator" :
+        [Story removed by <%= story.is_moderated? ? "webmaster" :
           "original submitter" %>]
       <% end %>
     </div>

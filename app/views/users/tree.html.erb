@@ -17,9 +17,9 @@
             <% end %>
             ><%= user.username %></a>&nbsp;(<%= user.karma %>)
           <% if user.is_admin? %>
-            (administrator)
+            (mayor)
           <% elsif user.is_moderator? %>
-            (moderator)
+            (webmaster)
           <% end %>
           <% if (children = @users_by_parent[user.id]) %>
             <% # drill down deeper in the tree %>
