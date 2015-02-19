@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "rails", "4.0.8"
+gem "rails", "~> 4.2"
 
-gem "unicorn"
+gem "puma"
 
 gem "mysql2", ">= 0.3.14"
 
