@@ -2,8 +2,6 @@ source "https://rubygems.org"
 
 gem "rails", "~> 4.2"
 
-gem "puma"
-
 gem "mysql2", ">= 0.3.14"
 
 # uncomment to use PostgreSQL
@@ -43,7 +41,7 @@ group :test, :development do
   gem "faker"
 end
 
-gem "thin"
 gem "world-flags"
 gem "typogruby"
 gem "rack-reverse-proxy"
+gem "puma"
