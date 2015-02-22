@@ -40,10 +40,10 @@
         <% links = {
           "/" => "Home",
           "/hottest" => "Spiciest",
-          "/comments" => "Talk of the Town"
+          "/comments" => "Talk of the Town",
+          "/search" => "Search",
+          "https://ianthehenry.com/basilica/" => "Basilica",
         } %>
-
-        <% links.merge!({ "/search" => "Search" }) %>
 
         <% if @cur_url.present? && !links.keys.include?(@cur_url) &&
         @heading.present? %>
