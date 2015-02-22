@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def time_ago_in_words_label(*args)
-    label_tag(nil, time_ago_in_words(*args),
+    label_tag(nil, "at #{args.first.strftime("%Y %b %d %H:%M %Z")}",
       :title => args.first.strftime("%F %T %z"))
   end
 

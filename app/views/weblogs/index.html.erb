@@ -18,7 +18,7 @@
         by <a href="<%= main_root_url %>u/<%= weblog.user.username %>"><%=
           weblog.user.username %></a>
         <%= raw(time_ago_in_words_label(weblog.created_at).
-          gsub(/^about /, "")) %> ago
+          gsub(/^about /, "")) %>
       </div>
     </div>
   </div>
