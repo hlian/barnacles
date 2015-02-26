@@ -19,8 +19,15 @@ html {
 
 html, input, button {
 	font-family: "helvetica", arial, sans-serif;
-	font-size: 21px;
+	font-size: 18px;
 	color: #333;
+}
+
+@media
+(-webkit-min-device-pixel-ratio: 2) {
+    html {
+        font-size: 15px;
+    }
 }
 
 textarea, code {
@@ -45,7 +52,7 @@ h2.commentsbegin {
     font-size: 1rem;
     margin: 0;
     margin-left: 55px;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 div.clear {
@@ -183,7 +190,7 @@ input[type="reset"],
 input[type="submit"],
 div.select2-choices {
 	display: inline-block;
-	padding: 0.5rem 10px;
+	padding: 0.25rem 10px;
 	color: #333333;
 	text-align: center;
 	background-color: #fafafa;
@@ -257,11 +264,9 @@ div#inside {
 /* header */
 
 #header {
-	font-weight: bold;
-	padding: 5px 42px 5px 10px;
-	margin-top: 1em;
-	margin-bottom: 0.5em;
     font-size: 0.8rem;
+    margin-left: 29px;
+    margin-bottom: 2rem;
 }
 
 #headerleft {
@@ -291,7 +296,7 @@ div#inside {
 }
 #header h1 a {
 	color: #333;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 #headertitle {
@@ -304,7 +309,6 @@ div#inside {
 
 .headerlinks a {
 	color: #777;
-	text-decoration: none;
 	padding-right: 0.75em;
 }
 
@@ -320,6 +324,7 @@ div#inside {
 
 #header a.cur_url {
 	color: #333;
+    font-weight: bold;
 }
 
 #header a.new_messages {
@@ -348,7 +353,6 @@ div#leader.guess input[type="submit"] {
 	width: 8em;
 	text-align: center;
 	box-sizing: border-box;
-    height: 2rem;
 }
 
 div#leader.guess input[type="input"] {
@@ -356,7 +360,11 @@ div#leader.guess input[type="input"] {
 	margin-right: 1em;
 	box-sizing: border-box;
 	text-align: left;
-    height: 2rem;
+}
+
+div#leader.guess input {
+    box-sizing: border-box;
+    padding: 0.5rem 1%;
 }
 
 /* footer */
@@ -404,10 +412,23 @@ ol.search_results {
 }
 
 ol.comments {
-	margin-left: 55px;
+	margin-left: 27.5px;
 	margin-bottom: 0em;
 	line-height: 1.35em;
 }
+
+#inside > ol.comments {
+    margin-left: 0;
+}
+
+p.markdown-info {
+    margin-top: 0;
+}
+
+ol.comments ol.comments p.markdown-info {
+    display: none;
+}
+
 ol.comments.comments1 {
 	border-left-color: transparent;
 }
@@ -495,7 +516,7 @@ li.story {
 }
 
 .comment a {
-	color: #666;
+	color: #333;
 }
 
 ol.stories li:first-child div.story_liner {
@@ -530,6 +551,9 @@ li .link {
 
 li .link a {
 	text-decoration: underline;
+    font-size: 1.4rem;
+    letter-spacing: -0.5px;
+    margin-right: 7px;
 }
 
 li.story a.tag {
@@ -566,16 +590,19 @@ li .byline a {
 	color: #888;
 	text-decoration: none;
 }
+
 a.comments_link {
-    border: 2px dotted #345;
-    color: black;
-    padding: 1rem 0;
+    color: #ddd;
+    padding: 0.5rem 0;
     display: block;
-    text-align: center;
     text-decoration: none;
     margin: 1rem 0;
+    margin-top: 0.5rem;
     font-size: 0.8rem;
+    margin-left: -55px;
+    padding-left: 55px;
 }
+
 ul.mod {
     float: right;
     width: 10px;
@@ -597,9 +624,8 @@ ul.mod a:hover {
 }
 
 a.comments_link.active {
+    color: #999;
     font-weight: bold;
-    text-shadow: 0 0;
-    border: 2px solid #345;
 }
 
 a.comments_link:hover, a.comments_link.active:hover {
@@ -773,6 +799,7 @@ div#story_box div.markdown_help_toggler {
 
 div.comment_form_container {
 	max-width: 1000px;
+    margin-left: 55px;
 }
 
 div.comment_form_container form {

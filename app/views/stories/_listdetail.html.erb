@@ -70,11 +70,11 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
             <span><%= place %></span></li>
         </span>
       </ul>
-      <a class="comments_link <%= story.comments_count > 0 ? 'active' : '' %>" href="<%= @user ? story.comments_url : login_url %>">
+      <a class="comments_link <%= story.comments_count > 0 ? 'active' : '' %>" href="<%= story.comments_url %>">
           <% if story.comments_count == 0 %>
           respectful silence
           <% else %>
-          <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %>
+          <%= story.comments_count %> <%= story.comments_count > 15 ? 'fucking' : '' %> <%= 'comment'.pluralize(story.comments_count) %>
           <% end %>
       </a>
       </div>
