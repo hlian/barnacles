@@ -243,6 +243,7 @@ Version: @@ver@@ Timestamp: @@timestamp@@
   list-style: none;
   cursor: pointer;
   display: list-item;
+  font-size: 0.8rem;
 }
 
 .select2-container .select2-results .select2-highlighted {

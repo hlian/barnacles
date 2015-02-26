@@ -12,19 +12,7 @@
 
       <div class="box">
         <div class="boxline markdown_help_toggler">
-          <div class="markdown_help_label">
-            Markdown formatting available
-          </div>
-
           <%= submit_tag "Submit" %>
-
-          &nbsp;
-          <button type="button" class="story-preview">Preview</button>
-
-          <div style="clear: both;"></div>
-
-          <%= render :partial => "global/markdownhelp",
-            :locals => { :allow_images => true } %>
         </div>
       </div>
     <% end %>

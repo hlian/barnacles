@@ -1,9 +1,9 @@
 ol.stories.list li.story div.story_liner {
-	padding-bottom: 3rem;
+	padding-bottom: 5%;
 }
 
 .details {
-	margin-left: 40px;
+	margin-left: 55px;
 	margin-right: 40px;
 }
 
@@ -27,7 +27,6 @@ a.tag {
 }
 
 .f32 {
-    float: right;
     display: none;
 }
 
@@ -46,13 +45,15 @@ li .domain::after {
 }
 
 .story_text {
-	line-height: 1.4;
     padding-bottom: 0.5rem;
 }
 
 .story_text p {
 	margin: 0.75rem 0;
-	line-height: 1.4rem;
+}
+
+body {
+	line-height: 1.4;
 }
 
 .link .dquo {

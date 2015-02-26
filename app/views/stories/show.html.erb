@@ -4,6 +4,7 @@
 </ol>
 
 <% if !@story.previewing %>
+  <h2 class="commentsbegin">Heated Debate</h2>
   <ol class="comments comments1">
     <% if !@story.is_gone? && !@story.previewing %>
       <li><%= render "comments/commentbox", :comment => @comment %></li>

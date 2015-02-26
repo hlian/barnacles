@@ -12,114 +12,75 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
     <div class="score"><%= story.score %></div>
   </div>
   <div class="details">
-    <div class="link has-fancy-underline">
+    <div class="has-fancy-underline story_text">
+    <span class="link">
       <% if story.can_be_seen_by_user?(@user) %>
-        <a href="<%= story.url_or_comments_url %>">
-          <%= raw(Typogruby.improve_ex(story.title.gsub('<', '&lt;').gsub('>', '&gt;'))) %>
-        </a>
-      <% end %>
-      <% if story.is_gone? %>
-        [Story removed by <%= story.is_moderated? ? "webmaster" :
-          "original submitter" %>]
-      <% end %>
-    </div>
-    <% if story.markeddown_description.present? %>
-    <div class="story_content has-fancy-underline">
-        <div class="story_text">
-          <%= raw story.markeddown_description %>
-        </div>
-    </div>
+        <a href="<%= story.url_or_comments_url %>"><%= raw(Typogruby.improve_ex(story.title.gsub('<', '&lt;').gsub('>', '&gt;'))) %></a>
+        <% end %>
+    </span>
+    <% if story.is_gone? %>
+      [Story removed by <%= story.is_moderated? ? "webmaster" :
+        "original submitter" %>]
     <% end %>
+    <% if story.markeddown_description.present? %>
+      <%= raw story.markeddown_description %>
+    <% end %>
+    </div>
     <% if story.can_be_seen_by_user?(@user) %>
     <div class="meta">
       <span class="tags">
+        <a class="tag tag_username" href="/u/<%= story.user.username %>"><%= story.user.username %></a>
         <% story.taggings.sort_by{|t| t.tag.tag }.sort_by{|t|
         t.tag.is_media?? -1 : 0 }.each do |tagging| %>
           <a href="<%= tag_url(tagging.tag.tag) %>"
             class="<%= tagging.tag.css_class %>"
             title="<%= tagging.tag.description %>"><%= tagging.tag.tag %></a>
         <% end %>
+        <a class="tag tag_domain" title="please don't click me"><%= story.domain || '._.' %></a>
+        <a class="tag tag_date"><%= raw(time_ago_in_words_label(story.created_at).gsub(/about /, "")) %></a>
       </span>
-      <span class="domain"><%= story.domain || '._.' %></span>
     </div>
-
-      <% if defined?(single_story) && single_story %>
-        <% story.merged_stories.each do |ms| %>
-          <br>
-          <span class="merge"></span>
-          <span class="link">
-            <a href="<%= ms.url_or_comments_url %>"><%= ms.title %></a>
-          </span>
-          <span class="tags">
-            <% ms.taggings.sort_by{|t| t.tag.tag }.sort_by{|t|
-            t.tag.tag == "pdf" ? -1 : 0 }.each do |tagging| %>
-              <a href="<%= tag_url(tagging.tag.tag) %>"
-                class="<%= tagging.tag.css_class %>"
-                title="<%= tagging.tag.description %>"><%= tagging.tag.tag %></a>
-            <% end %>
-          </span>
-          <span class="domain"><%= ms.domain %></span>
-        <% end %>
-      <% end %>
-    <% end %>
-    <div class="byline">
-      <% if story.previewing %>
-        <a><%= story.user.username %></a>
-        just now
-      <% else %>
-        <a href="/u/<%= story.user.username %>"><%= story.user.username %></a>
-        <%= raw(time_ago_in_words_label(story.created_at).gsub(/about /, "")) %>
-
+    <% if !story.is_gone? %>
+      <div class="comments_label">
+      <ul class="mod">
         <% if story.is_editable_by_user?(@user) %>
-          &bull;
-          <a href="<%= edit_story_url(story.short_id) %>">edit</a>
+          <li><a href="<%= edit_story_url(story.short_id) %>">edit</a></li>
 
           <% if story.is_gone? && story.is_undeletable_by_user?(@user) %>
-            &bull;
-            <%= link_to "undelete", story_undelete_url(story.short_id),
+          <li><%= link_to "undelete", story_undelete_url(story.short_id),
               :method => :post, :data => {
-              :confirm => "Are you sure you want to undelete this story?" } %>
+              :confirm => "Are you sure you want to undelete this story?" } %></li>
           <% elsif !story.is_gone? %>
-            &bull;
             <% if story.user_id != @user.try(:id) &&
             @user.try(:is_moderator?) %>
-              <%= link_to "delete", story_url(story.short_id),
-                :method => :delete, :class => "mod_story_link" %>
+              <li><%= link_to "delete", story_url(story.short_id),
+                :method => :delete, :class => "mod_story_link" %></li>
             <% else %>
-              <%= link_to "delete", story_url(story.short_id),
+              <li><%= link_to "delete", story_url(story.short_id),
                 :method => :delete, :data => {
-                :confirm => "Are you sure you want to delete this story?" } %>
+                :confirm => "Are you sure you want to delete this story?" } %></li>
             <% end %>
           <% end %>
         <% end %>
 
         <% code, place = RandomFlags.one %>
-        &bull; <a class="flagger">flag</a>
+        <li><a class="flagger">flag</a>
         <span class="f32">
             <span class="flag <%= code %>"></span>
-            <span><%= place %></span>
+            <span><%= place %></span></li>
         </span>
-
-        <% if !story.is_gone? %>
-          <span class="comments_label">
-            &bull;
-            <a class="comments_link <%= story.comments_count > 0 ? 'active' : '' %>" href="<%= @user ? story.comments_url : login_url %>">
-              <% if story.comments_count == 0 %>
-              respectful silence
-              <% else %>
-              <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %>
-              <% end %>
-            </a>
-          </span>
-        <% end %>
-
-        <% if defined?(single_story) && single_story %>
-          <% if story.downvotes > 0 %>
-            &bull; <%= story.vote_summary_for(@user).downcase %>
+      </ul>
+      <a class="comments_link <%= story.comments_count > 0 ? 'active' : '' %>" href="<%= @user ? story.comments_url : login_url %>">
+          <% if story.comments_count == 0 %>
+          respectful silence
+          <% else %>
+          <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %>
           <% end %>
-        <% end %>
-      <% end %>
-    </div>
+      </a>
+      </div>
+    <% end %>
+
+    <% end %>
   </div>
 </div>
 <div class="mobile_comments <%= story.comments_count == 0 ? "zero" : "" %>"
