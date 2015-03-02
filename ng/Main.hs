@@ -5,17 +5,7 @@ module Main where
 import BasePrelude hiding (for_)
 import Data.Text (Text)
 import Lucid
-
-newtype Title = Title Text
-newtype ID = ID Integer
-
-data Story =
-  Story { _storyID :: ID
-        , _storyTitle :: Title
-        , _storyURL :: Text
-        , _storyBody :: Text
-        , _storyWhisks :: Integer
-        }
+import Models
 
 data Comment =
   Comment { _commentID :: ID
@@ -28,11 +18,10 @@ data Comment =
 
 header :: Html ()
 header =
-  do
-    with nav_
-      [class_ "typ-nav"]
-      (do headerleft
-          headerright)
+  with nav_
+    [class_ "typ-nav"]
+    (do headerleft
+        headerright)
   where
     headerleft =
       ul_ (do link "/" "Home"
@@ -63,7 +52,7 @@ s :: Html ()
 s = "commit ffea4ca34c05e229615b2e40a7b3839bd21e78f8\nAuthor: Doug Patti <douglas@fogcreek.com>\nDate:   Fri Jun 1 00:05:20 2012 +0400\n\n    Fix duplicate key for subscriptions test\n\ndiff --git a/unitTests/api_cards.coffee b/unitTests/api_cards.coffee\nindex 86d5..48807 100644\n--- a/unitTests/api_cards.coffee\n+++ b/unitTests/api_cards.coffee\n@@ -438,7 +438,7 @@ exports.tests =\n       ], next\n     , next\n\n-  subscriptions: (next) ->\n+  subscriptions2: (next) ->^M\n     date = new Date()\n"
 
 posts :: Html ()
-posts = do
+posts =
   with section_ [id_ "posts"] $ do
     article_ (post title0 copy0)
     article_ (post title1 copy1)
@@ -80,7 +69,7 @@ posts = do
       p_ "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
 
 quickpost :: Html ()
-quickpost = do
+quickpost =
   with section_ [id_ "quickpost", class_ "typ-quickpost"] $ do
     h2_ "Make a Barnacle"
     with p_ [class_ "typ-has-url"] $ do
