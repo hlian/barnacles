@@ -11,6 +11,7 @@ body {
 .typ-nav {
     margin-left: 10px;
     margin-bottom: 1.7em;
+    margin-right: 10px;
 }
 
 .typ-nav ul {
@@ -99,4 +100,18 @@ h2 {
 .typ-user-meta {
     margin-bottom: 1em;
     color: #666;
+}
+
+.typ-quickpost {
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid red;
+}
+
+.typ-quickpost h2 {
+    font-weight: bold;
+}
+
+.typ-quickpost p {
+    margin: 0.5em 0;
 }

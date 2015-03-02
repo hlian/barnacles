@@ -2,7 +2,7 @@
 
 module Main where
 
-import BasePrelude
+import BasePrelude hiding (for_)
 import Data.Text (Text)
 import Lucid
 
@@ -23,6 +23,8 @@ data Comment =
           , _commentParentID :: ID
           , _commentStoryID :: ID
           }
+
+-- (add-hook 'after-save-hook 'haskell-process-load-or-reload)
 
 header :: Html ()
 header =
@@ -77,6 +79,23 @@ posts = do
       p_ "After a weekend of cabal and bundler hell, we’re now one square ahead on our journey toward a time-wasting, completely Haskellized Barnacles. One day Haskell will have amazing OpenSSL bindings, guys, but until then we have authd to do Rails' bonkers cookie authentication and decryption."
       p_ "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
 
+quickpost :: Html ()
+quickpost = do
+  with section_ [id_ "quickpost", class_ "typ-quickpost"] $ do
+    h2_ "Make a Barnacle"
+    with p_ [class_ "typ-has-url"] $ do
+      input_ [type_ "radio", id_ "no-url", name_ "has-url", value_ "0"]
+      with label_ [for_ "no-url"] "No URL"
+      input_ [type_ "radio", id_ "yes-url", name_ "has-url", value_ "1"]
+      with label_ [for_ "yes-url"] "URL"
+      input_ [type_ "url", id_ "url", name_ "url"]
+    p_ $ do
+      with label_ [for_ "url"] "Title"
+      input_ [type_ "input", id_ "title", name_ "title", placeholder_ "Ask Barnacles: what's up?"]
+    p_ $ do
+      with label_ [for_ "story"] "Description"
+      with textarea_ [placeholder_ "Tell us a story..."] ""
+
 home :: Html ()
 home =
   doctype_ <> with html_
@@ -85,6 +104,7 @@ home =
                   css "css/css.css.css"
                   meta_ [charset_ "utf-8"])
         body_ (do header
+                  quickpost
                   posts))
   where
     css path =
