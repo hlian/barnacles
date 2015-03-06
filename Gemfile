@@ -47,3 +47,4 @@ gem "rack-reverse-proxy"
 gem "puma"
 
 gem "newrelic_rpm"
+gem 'tunemygc'
