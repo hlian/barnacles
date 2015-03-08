@@ -30,7 +30,7 @@ class StoriesController < ApplicationController
   def guess
     @title = "Submit Story"
     @cur_url = "/stories/new"
-    text = params.require(:text)
+    text = params[:text] or ""
 
     if text.start_with? "http://" or text.start_with? "https://"
       @story = Story.new(:url => text)
