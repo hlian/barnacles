@@ -1,0 +1,31 @@
+fieldset.ad {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    margin-left: 55px;
+    border: 1px solid #eee;
+}
+
+.ad legend {
+    font-family: signpainter, times, serif;
+    font-style: italic;
+    font-size: 2rem;
+    padding-right: 0.8rem;
+    padding-left: 0.5rem;
+}
+
+fieldset legend {
+    border: 1px solid #eee;
+}
+
+fieldset.ad {
+    font-family: courier;
+}
+
+.ad-plug {
+    font-size: 8px !important;
+    color: #444;
+}
+
+.ad-plug a {
+    color: #444;
+}
