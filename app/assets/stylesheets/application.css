@@ -310,7 +310,9 @@ div#inside {
 
 .headerlinks a {
 	color: #777;
-	padding-right: 0.75em;
+	margin-right: 0.75em;
+    text-decoration: none;
+    padding-bottom: 3px;
 }
 
 #headerright {
@@ -318,14 +320,16 @@ div#inside {
 	text-align: right;
 }
 
-#headerright .headerlinks a {
-	padding-right: 0;
-	padding-left: 0.75em;
-}
-
 #header a.cur_url {
 	color: #333;
     font-weight: bold;
+    border-bottom: 3px solid gray;
+}
+
+.headerlinks a:focus {
+	color: white !important;
+    border-bottom: 4px solid blue;
+    background: fuchsia;
 }
 
 #header a.new_messages {
