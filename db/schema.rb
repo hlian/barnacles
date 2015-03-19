@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829173747) do
+ActiveRecord::Schema.define(version: 20150319191130) do
 
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at",                                                                    null: false
     t.datetime "updated_at"
-    t.string   "short_id",           limit: 10,                                 default: "",    null: false
+    t.string   "short_id",           limit: 10
     t.integer  "story_id",           limit: 4,                                                  null: false
     t.integer  "user_id",            limit: 4,                                                  null: false
     t.integer  "parent_comment_id",  limit: 4
     t.integer  "thread_id",          limit: 4
-    t.text     "comment",            limit: 16777215,                                           null: false
+    t.text     "comment",            limit: 16777215
     t.integer  "upvotes",            limit: 4,                                  default: 0,     null: false
     t.integer  "downvotes",          limit: 4,                                  default: 0,     null: false
     t.decimal  "confidence",                          precision: 20, scale: 19, default: 0.0,   null: false
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140829173747) do
   end
 
   create_table "keystores", id: false, force: :cascade do |t|
-    t.string  "key",   limit: 50, default: "", null: false
+    t.string  "key",   limit: 50
     t.integer "value", limit: 8
   end
 
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20140829173747) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id",    limit: 4,   null: false
-    t.string   "comment_id", limit: 255, null: false
+    t.binary   "comment_id", limit: 255
     t.boolean  "unread",     limit: 1,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -111,10 +111,10 @@ ActiveRecord::Schema.define(version: 20140829173747) do
   create_table "stories", force: :cascade do |t|
     t.datetime "created_at"
     t.integer  "user_id",                limit: 4
-    t.string   "url",                    limit: 250,                                default: ""
-    t.string   "title",                  limit: 150,                                default: "",  null: false
+    t.string   "url",                    limit: 250
+    t.string   "title",                  limit: 150
     t.text     "description",            limit: 16777215
-    t.string   "short_id",               limit: 6,                                  default: "",  null: false
+    t.string   "short_id",               limit: 6
     t.integer  "is_expired",             limit: 1,                                  default: 0,   null: false
     t.integer  "upvotes",                limit: 4,                                  default: 0,   null: false
     t.integer  "downvotes",              limit: 4,                                  default: 0,   null: false
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(version: 20140829173747) do
   add_index "taggings", ["story_id", "tag_id"], name: "story_id_tag_id", unique: true, using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string  "tag",         limit: 25,  default: "",    null: false
+    t.string  "tag",         limit: 25
     t.string  "description", limit: 100
     t.boolean "privileged",  limit: 1,   default: false
     t.boolean "is_media",    limit: 1,   default: false
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20140829173747) do
     t.boolean  "email_notifications",  limit: 1,        default: false
     t.boolean  "is_admin",             limit: 1,        default: false
     t.string   "password_reset_token", limit: 75
-    t.string   "session_token",        limit: 75,       default: "",    null: false
+    t.string   "session_token",        limit: 75
     t.text     "about",                limit: 16777215
     t.integer  "invited_by_user_id",   limit: 4
     t.boolean  "email_replies",        limit: 1,        default: false
@@ -218,9 +218,7 @@ ActiveRecord::Schema.define(version: 20140829173747) do
     t.string   "site_url",   limit: 512
     t.text     "content",    limit: 16777215
     t.text     "tags",       limit: 65535
-    t.string   "uuid",       limit: 200
+    t.text     "uuid",       limit: 65535
   end
-
-  add_index "weblogs", ["user_id", "uuid"], name: "user_and_uuid", unique: true, using: :btree
 
 end
