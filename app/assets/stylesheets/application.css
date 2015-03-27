@@ -326,7 +326,7 @@ div#inside {
     border-bottom: 3px solid gray;
 }
 
-.headerlinks a:focus {
+.headerlinks a:focus, .headerlinks a:active {
 	color: white !important;
     border-bottom: 4px solid blue;
     background: fuchsia;
