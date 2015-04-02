@@ -5,12 +5,17 @@ fieldset.ad {
     border: 1px solid #eee;
 }
 
+.ad p {
+    margin: 0.25rem 0;
+}
+
 .ad legend {
     font-family: signpainter, times, serif;
     font-style: italic;
     font-size: 2rem;
     padding-right: 0.8rem;
     padding-left: 0.5rem;
+    line-height: 1.1;
 }
 
 fieldset legend {
