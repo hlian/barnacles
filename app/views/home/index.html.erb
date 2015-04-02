@@ -20,10 +20,16 @@
    "the one who port-knocks",
    "unsure of where to stand in the whole East vs. West Coast debate",
    ] %>
+<% ads = "ab" %>
 
 <fieldset class="ad">
   <legend>Barnaclad™</legend>
+  <% ad = ads[rand(ads.length)] %>
+  <% if ad == "a" %>
   <p><a href="https://threegoodthings.xyz/">Three Good Things</a> — the daily journal for people on the go</p>
+  <% elsif ad == "b" %>
+  <p><a href="mailto:lauren+lisa@trello.com">Job: Paid Tutor</a> — I was wondering if you knew someone who is familiar with the MongoDB, Node, and Angular stack. I&rsquo;m taking a course right now that&rsquo;s kicking my butt, and wanted to get someone who I could meet with maybe like once a week and ask a couple Qs. (Lisa [a friend], New York City)</p>
+  <% end %>
   <div class="ad-plug"><em>Barnacles</em> is made possible by
   Barnaclad™, a high-signal, hand-curated ad network/webring for
   reaching the leading mathematicians, plumbers, horse whisperers, and eccentric arsonists
