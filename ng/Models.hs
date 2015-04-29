@@ -10,29 +10,28 @@ import Database.MySQL.Simple.Result (convert)
 
 import qualified Data.Map as Map
 
-newtype Title = Title Text
-                deriving (Show)
-
 newtype ID = ID Integer
              deriving (Show)
 
 data Story =
   Story { _storyID :: ID
-        , _storyTitle :: Title
-        , _storyURL :: Text
+        , _storyTitle :: Text
+        , _storyURL :: Maybe Text
         , _storyBody :: Text
         , _storyWhisks :: Integer
         }
   deriving (Show)
 
 instance QueryResults Story where
-  convertResults fields mbs =
-    either (error . show) id $ Story
-      <$> (ID <$> k "id")
-      <*> (Title <$> k "title")
-      <*> k "url"
-      <*> k "body"
-      <*> k "whisks"
+  convertResults fields mbs = do
+    either (error . show) id $ do
+      url <- k "body"
+      return $       Story
+          <$> (ID <$> k "id")
+          <*> k "title"
+          <*> return url
+          <*> k "body"
+          <*> k "whisks"
     where
       fieldsMap =
         Map.fromList (zip (fieldName <$> fields) fields)
