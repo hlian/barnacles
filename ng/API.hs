@@ -43,10 +43,7 @@ instance ToJSON Home where
 
 routeOfStory :: Story -> Text
 routeOfStory Story{..} =
-  "/story" <> subdirectory _storyID
-  where
-    subdirectory (ID i) =
-      present i
+  "/story/" <> present _storyID
 
 home :: IO Home
 home = do

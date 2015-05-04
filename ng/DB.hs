@@ -12,7 +12,7 @@ connectInfo =
 stories :: IO [Story]
 stories = do
   conn <- M.connect connectInfo
-  M.query_ conn "select id, title, url, markeddown_description as body, upvotes as whisks from stories"
+  M.query_ conn "select id, title, url, markeddown_description, upvotes from stories order by created_at desc limit 10;"
 
 main :: IO ()
 main =

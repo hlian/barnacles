@@ -9,12 +9,10 @@ import Database.MySQL.Base.Types (fieldName)
 import Database.MySQL.Simple.Result (convert)
 
 import qualified Data.Map as Map
-
-newtype ID = ID Integer
-             deriving (Show)
+import qualified Data.Text as Text
 
 data Story =
-  Story { _storyID :: ID
+  Story { _storyID :: Integer
         , _storyTitle :: Text
         , _storyURL :: Maybe Text
         , _storyBody :: Text
@@ -22,16 +20,18 @@ data Story =
         }
   deriving (Show)
 
+ensure :: (a -> Bool) -> a -> Maybe a
+ensure predicate x =
+  if predicate x then Just x else Nothing
+
 instance QueryResults Story where
-  convertResults fields mbs = do
-    either (error . show) id $ do
-      url <- k "body"
-      return $       Story
-          <$> (ID <$> k "id")
-          <*> k "title"
-          <*> return url
-          <*> k "body"
-          <*> k "whisks"
+  convertResults fields mbs = either (error . show) id $ do
+    identifier <- k "id"
+    title <- k "title"
+    url <- ensure ((> 0) . Text.length) <$> k "url"
+    body <- k "markeddown_description"
+    whisks <- k "upvotes"
+    return (Story identifier title url body whisks)
     where
       fieldsMap =
         Map.fromList (zip (fieldName <$> fields) fields)
