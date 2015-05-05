@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'uri'
+
 class Markdowner
   # opts[:allow_images] allows <img> tags
   # opts[:disable_profile_links] disables @username -> /u/username links
@@ -29,6 +32,27 @@ class Markdowner
 
     # make links have rel=nofollow
     html.gsub!(/<a href/, "<a rel=\"nofollow\" href")
+
+    doc = Nokogiri::HTML::DocumentFragment.parse html
+    doc.css('a[href]').each do |anchor|
+      href = anchor['href']
+      if href and anchor.inner_html == ""
+        uri = URI.parse(href)
+        video, = uri.query.match(/v=([A-Za-z0-9]*?)&/).captures
+        if video
+          iframe = Nokogiri::HTML::DocumentFragment.parse <<-OKTHEN
+
+<iframe type="text/html" width="500" height="281"
+  src="https://youtube.com/embed/#{video}"
+  frameborder="0">
+
+OKTHEN
+
+          anchor.add_next_sibling(iframe)
+          html = doc.to_html
+        end
+      end
+    end
 
     if !opts[:disable_profile_links]
       # make @username link to that user's profile
