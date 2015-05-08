@@ -13,7 +13,9 @@ module ApplicationHelper
   end
 
   def time_ago_in_words_label(*args)
-    label_tag(nil, "at #{args.first.strftime("%Y %b %d %H:%M %Z")}",
+    current_year = Time.new.year
+    format = (current_year == args.first.year ? "" : "%Y ") + "%b %d %H:%M %Z"
+    label_tag(nil, "at #{args.first.strftime(format)}",
       :title => args.first.strftime("%F %T %z"))
   end
 
