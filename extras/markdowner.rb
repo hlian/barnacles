@@ -38,13 +38,16 @@ class Markdowner
       href = anchor['href']
       if href and anchor.inner_html == ""
         uri = URI.parse(href)
-        video, = uri.query.match(/v=([A-Za-z0-9]*?)&/).captures
+        video = uri.query.match(/v=([A-Za-z0-9]*?)[&$]/)
+        video = if video then video.captures[0] else nil end
         if video
           iframe = Nokogiri::HTML::DocumentFragment.parse <<-OKTHEN
 
+<br>
 <iframe type="text/html" width="500" height="281"
   src="https://youtube.com/embed/#{video}"
   frameborder="0">
+<br>
 
 OKTHEN
 
