@@ -33,26 +33,43 @@ class Markdowner
     # make links have rel=nofollow
     html.gsub!(/<a href/, "<a rel=\"nofollow\" href")
 
-    doc = Nokogiri::HTML::DocumentFragment.parse html
-    doc.css('a[href]').each do |anchor|
-      href = anchor['href']
-      if href and anchor.inner_html == ""
-        uri = URI.parse(href)
-        video = uri.query.match(/v=([A-Za-z0-9]*?)[&$]/)
-        video = if video then video.captures[0] else nil end
-        if video
-          iframe = Nokogiri::HTML::DocumentFragment.parse <<-OKTHEN
-
+    # things to do
+    thingstodo = [[/youtube\.com(?:.*?)v=([A-Za-z0-9]*?)(?:&|$)/,
+                   lambda do |video| <<-OKTHEN
 <br>
 <iframe type="text/html" width="500" height="281"
   src="https://youtube.com/embed/#{video}"
   frameborder="0">
 <br>
-
 OKTHEN
+                  end],
 
-          anchor.add_next_sibling(iframe)
-          html = doc.to_html
+                  [/vimeo.com\/([0-9]+)/,
+                   lambda do |video| <<-FINEOK
+<br>
+<iframe src="https://player.vimeo.com/video/#{video}"
+  width="500" height="281"
+  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<br>
+FINEOK
+                   end]]
+
+    doc = Nokogiri::HTML::DocumentFragment.parse html
+    doc.css('a[href]').each do |anchor|
+      href = anchor['href']
+      if href and anchor.inner_html == ""
+        uri = URI.parse(href)
+        thingstodo.each do |thingtodo|
+          (regex, replacement) = thingtodo
+          video = uri.to_s.match(regex)
+          video = if video then video.captures[0] else nil end
+          if video
+            iframe = Nokogiri::HTML::DocumentFragment.parse replacement.call(video)
+            anchor.add_next_sibling(iframe)
+            html = doc.to_html()
+          else
+            # nothing
+          end
         end
       end
     end
@@ -71,3 +88,5 @@ OKTHEN
     html
   end
 end
+
+puts Markdowner.to_html(ARGF.read)
