@@ -82,7 +82,7 @@
 		margin-top: -5px;
 	}
 
-	div.comment_form_container form {
+	div.comment_form_container, h2.commentsbegin {
 		margin-left: 1.75em;
 	}
 
@@ -106,71 +106,6 @@
 		padding-top: 0.5em;
 		padding-bottom: 0.75em;
 		width: 100%;
-	}
-	ol.stories.list li.story div.mobile_comments {
-		background-color: #e8e8e8;
-		display: table-cell !important;
-		font-size: 11pt;
-		min-width: 40px;
-		text-align: center;
-		vertical-align: middle;
-	}
-	ol.stories.list li.story div.mobile_comments a:before {
-		border-style: solid;
-		border-width: 0px 6px 3px 0px;
-		border-color: #ccc;
-		border-bottom-right-radius: 13px;
-		bottom: -10px;
-		content: "";
-		display: block;
-		height: 6px;
-		left: 4px;
-		position: absolute;
-		width: 5px;
-		z-index: 10;
-	}
-	ol.stories.list li.story div.mobile_comments a:after {
-		border-bottom-right-radius: 10px;
-		border-color: #ccc;
-		border-style: solid;
-		border-width: 0px 3px 3px 0px;
-		bottom: -10px;
-		content: "";
-		display: block;
-		height: 6px;
-		left: 5px;
-		position: absolute;
-		width: 10px;
-		z-index: 10;
-	}
-	ol.stories.list li.story div.mobile_comments a {
-		background-color: #ccc;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		color: #333;
-		display: block;
-		font-size: 9pt;
-		margin: 0 0.5em;
-		padding: 2px;
-		position: relative;
-		text-align: center;
-		text-decoration: none;
-	}
-	ol.stories.list li.story div.mobile_comments a:active,
-	ol.stories.list li.story div.mobile_comments a:focus {
-		outline: 0;
-	}
-	ol.stories.list li.story div.mobile_comments.zero a {
-		color: gray;
-	}
-	ol.stories.list li.story div.mobile_comments.zero a {
-		background-color: #d8d8d8;
-		color: #999;
-	}
-	ol.stories.list li.story div.mobile_comments.zero a,
-	ol.stories.list li.story div.mobile_comments.zero a:before,
-	ol.stories.list li.story div.mobile_comments.zero a:after {
-		border-color: #d8d8d8;
 	}
 	ol.stories.list li.story span.comments_label {
 		display: none;
@@ -234,4 +169,9 @@
 	div#user_about {
 		margin-left: 0;
 	}
+
+    fieldset.ad {
+        margin-left: 0px;
+        margin-top: 0.5rem;
+    }
 }

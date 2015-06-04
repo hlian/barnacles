@@ -1,5 +1,5 @@
 ol.stories.list li.story div.story_liner {
-	padding-bottom: 2rem;
+	padding-bottom: 0.5rem;
 }
 
 .details {
@@ -65,4 +65,13 @@ body {
     font-style: italic;
     font-weight: normal;
     font-size: 0.8em;
+}
+
+#header h1 {
+	margin: 0 0 1rem 22px;
+	padding: 0px;
+}
+
+blockquote {
+    margin-left: 2rem;
 }

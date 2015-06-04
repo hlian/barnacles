@@ -2,12 +2,13 @@
 /*
  *= require select2
  *= require_self
- *= require mobile
  *= require spacing
  *= require has-fancy-underline
  *= require flags/basic
  *= require flags/flags32
  *= require barnaclad
+ *= require typography
+ *= require mobile
 */
 
 
@@ -18,22 +19,8 @@ html {
 	overflow-y: scroll;
 }
 
-html, input, button {
-	font-family: "helvetica", arial, sans-serif;
-	font-size: 18px;
-	color: #333;
-}
-
-@media
-(-webkit-min-device-pixel-ratio: 2) {
-    html {
-        font-size: 15px;
-    }
-}
-
-textarea, code {
-	font-size: 0.9rem;
-	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
+body {
+    background-image: url(<%= asset_path 'geometry2.png' %>);
 }
 
 a {
@@ -45,12 +32,9 @@ h1 {
 	margin: 0px;
 	margin-bottom: 0.75em;
 	padding: 0px;
-	font-weight: bold;
-	font-size: 1rem;
 }
 
 h2.commentsbegin {
-    font-size: 1rem;
     margin: 0;
     margin-left: 55px;
     margin-top: 2rem;
@@ -65,8 +49,6 @@ div.s {
 }
 
 a.tag {
-	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
-    font-size: 0.8rem;
 	text-decoration: none;
     color: #333;
     background-color: lightcyan;
@@ -265,7 +247,6 @@ div#inside {
 /* header */
 
 #header {
-    font-size: 0.8rem;
     margin-left: 29px;
     margin-bottom: 2rem;
 }
@@ -287,14 +268,6 @@ div#inside {
 	margin-right: 11px;
 }
 
-#header h1 {
-	font-size: 1.2rem;
-	margin: 0px;
-	margin-left: 22px;
-	margin-right: 1em;
-	padding: 0px;
-	display: inline;
-}
 #header h1 a {
 	color: #333;
 	text-decoration: underline;
@@ -459,15 +432,12 @@ div.voters {
 }
 
 div.voters div.score {
-	color: #aaa;
-	font-size: 0.8rem;
 	margin-top: 1px;
 	margin-bottom: -3px;
 	text-align: center;
 }
 
 li.story div.voters div.score {
-	font-size: 0.8rem;
 	margin-top: 2px;
 }
 
@@ -555,9 +525,7 @@ li .link {
 }
 
 li .link a {
-	text-decoration: underline;
-    font-size: 1.4rem;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.25px;
     margin-right: 7px;
 }
 
@@ -568,8 +536,8 @@ li.story a.tag {
 li .domain {
 	color: #888;
 	vertical-align: middle;
-	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
 }
+
 li .domain a {
 	color: #888;
 	text-decoration: none;
@@ -634,9 +602,9 @@ a.comments_link.active {
 }
 
 a.comments_link:hover, a.comments_link.active:hover {
-    background-image: url(https://barnacles.blackfriday/assets/paisley.png);
+    background-image: url(<%= asset_path 'paisley.png' %>);
     background-position: 0px 60px;
-    color: white;
+     color: white;
 }
 
 span.new_user, a.new_user,
@@ -700,10 +668,6 @@ div.story_text img {
 	max-width: 100%;
 }
 
-div.story_text span.link+p {
-    display: inline;
-}
-
 div.story_text span.link+p + strong {
     display: block;
     margin: 0.5rem 0;
@@ -716,7 +680,7 @@ div.comment_text {
 div.comment_text blockquote,
 div.markdown_help blockquote {
 	font-style: italic;
-	margin: 0.25em 0 0 0.5em;
+	margin: 0.25rem 0 0 0.5rem;
 	padding: 0 0 0 1em;
 	border-left: 2px solid gray;
 }

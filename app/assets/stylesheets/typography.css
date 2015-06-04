@@ -1,0 +1,53 @@
+html, input, button {
+	font-family: "source sans pro", "helvetica", arial, sans-serif;
+	color: #222;
+}
+
+textarea, code {
+	font-size: 0.9rem;
+	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+h2.commentsbegin {
+    font-size: 1rem;
+}
+
+a.tag, li .domain {
+	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+}
+
+#header {
+    font-size: 0.9rem;
+}
+
+#header h1 {
+	font-size: 1.2rem;
+}
+
+div.voters div.score {
+	color: #999;
+	font-size: 0.9rem;
+}
+
+li .link a {
+    font-size: 1.4rem;
+    font-family: "alegreya", "source sans pro", "helvetica", arial, sans-serif;
+}
+
+@media only screen and (min-device-width: 0px) {
+    html, input, button { font-size: 14px }
+}
+
+@media only screen and (min-device-width: 1200px) {
+    html, input, button { font-size: 16px }
+}
+
+@media only screen and (min-device-width: 2200px) {
+    html, input, button { font-size: 20px }
+}

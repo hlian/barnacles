@@ -23,7 +23,7 @@ fieldset legend {
 }
 
 fieldset.ad {
-    font-family: courier;
+    font-family: 'ubuntu mono', courier;
 }
 
 .ad-plug {

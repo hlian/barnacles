@@ -7,18 +7,16 @@
 
 <% if @cur_url == "/" %>
 <% stories = [
-   "the internet’s oldest community",
-   "the envy of bazaars overseas",
-   "in peak physical condition, sources say",
-   "looking at you shyly",
-   "the owner of two same snowflakes, promises not to tell anybody",
-   "heart in hand and lost at sea",
-   "spice-route gossip",
-   "rubbing its chin thoughtfully",
-   "mad with power, but sad with respect",
-   "gone when you wake up in the morning",
-   "the one who port-knocks",
-   "unsure of where to stand in the whole East vs. West Coast debate",
+   "is the envy of bazaars overseas",
+   "is in peak physical condition, sources say",
+   "is looking at you shyly",
+   "is spice-route gossip",
+   "is rubbing its chin thoughtfully",
+   "is gone when you wake up in the morning",
+   "is the one who port-knocks",
+   "is unsure of where to stand in the whole East vs. West Coast debate",
+   "is three syllables and a whole lotta heart",
+   "remembers the part where Harry digs Dobby’s grave",
    ] %>
 <% ads = "ab" %>
 
@@ -28,20 +26,19 @@
   <% if ad == "a" %>
   <p><a href="https://threegoodthings.xyz/">Three Good Things</a> — the daily journal for people on the go</p>
   <% elsif ad == "b" %>
-  <p><a href="mailto:lauren+lisa@trello.com">Job: Paid Tutor</a> — I was wondering if you knew someone who is familiar with the MongoDB, Node, and Angular stack. I&rsquo;m taking a course right now that&rsquo;s kicking my butt, and wanted to get someone who I could meet with maybe like once a week and ask a couple Qs. (Lisa [a friend], New York City)</p>
+  <p><a href="http://jack-bowman.com/betazoid">Betazoid</a> — are they at peace</p>
   <% end %>
   <div class="ad-plug"><em>Barnacles</em> is made possible by
   Barnaclad™, a high-signal, hand-curated ad network/webring for
   reaching the leading mathematicians, plumbers, horse whisperers, and eccentric arsonists
   of our time. To advertise, please contact
     <a href='m&#97;ilt&#111;&#58;ba%72%6&#69;a&#99;l&#37;61&#100;&#37;40hao%6C%&#54;9&#97;n&#46;org'>&#98;&#97;&#114;na&#99;la&#100;&#64;&#104;a&#111;l&#105;&#97;n&#46;&#111;&#114;&#103;</a>.
-    (Seriously though: if you have something cool you need eyeballs
-    on, let me know.)</div>
+  </div>
 </fieldset>
 
 <% story = stories[rand(stories.length)] %>
   <div class="box guess" id="leader">
-    <p><em>Barnacles</em> is <%= story %>. To submit a URL or ask a question, </p>
+    <p><em>Barnacles</em> <%= story %>. To submit a URL or ask a question, </p>
     <form method="post" action="/stories/guess">
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
       <input type="input" placeholder="e.g. <%= rand(2) == 0 ? "http://www.reddit.com/r/ArtisanVideos/" : "Ask Barnacles: What's tsking vs. whisking?" %>" name="text" tabindex="1"><input type="submit" value="Submit Story" tabindex="2">
