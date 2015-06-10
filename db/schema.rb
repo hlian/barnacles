@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319191130) do
+ActiveRecord::Schema.define(version: 20150610023928) do
 
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at",                                                                    null: false
@@ -115,15 +115,16 @@ ActiveRecord::Schema.define(version: 20150319191130) do
     t.string   "title",                  limit: 150
     t.text     "description",            limit: 16777215
     t.string   "short_id",               limit: 6
-    t.integer  "is_expired",             limit: 1,                                  default: 0,   null: false
-    t.integer  "upvotes",                limit: 4,                                  default: 0,   null: false
-    t.integer  "downvotes",              limit: 4,                                  default: 0,   null: false
-    t.integer  "is_moderated",           limit: 1,                                  default: 0,   null: false
-    t.decimal  "hotness",                                 precision: 20, scale: 10, default: 0.0, null: false
+    t.integer  "is_expired",             limit: 1,                                  default: 0,    null: false
+    t.integer  "upvotes",                limit: 4,                                  default: 0,    null: false
+    t.integer  "downvotes",              limit: 4,                                  default: 0,    null: false
+    t.integer  "is_moderated",           limit: 1,                                  default: 0,    null: false
+    t.decimal  "hotness",                                 precision: 20, scale: 10, default: 0.0,  null: false
     t.text     "markeddown_description", limit: 16777215
     t.text     "story_cache",            limit: 16777215
-    t.integer  "comments_count",         limit: 4,                                  default: 0,   null: false
+    t.integer  "comments_count",         limit: 4,                                  default: 0,    null: false
     t.integer  "merged_story_id",        limit: 4
+    t.boolean  "truth",                  limit: 1,                                  default: true
   end
 
   add_index "stories", ["hotness"], name: "hotness_idx", using: :btree

@@ -343,13 +343,14 @@ $(document).ready(function() {
     }
   });
 
-  $("#story_tags_a").select2({
+  $("#story_tags_a, #story_truth").select2({
     formatSelection: function(what) {
       return what.id;
     },
     matcher: function(term, text) {
       return text.toUpperCase().indexOf(term.toUpperCase()) == 0;
-    }
+    },
+    width: '600px'
   });
 
   $(document).on("click", "div.markdown_help_toggler .markdown_help_label",

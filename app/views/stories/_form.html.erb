@@ -45,6 +45,25 @@
   </div>
 
   <div class="boxline" style="margin-bottom: 2px;">
+  <%= f.label :truth,
+              "Truth:",
+              :class => "required",
+              :style => "line-height: 2.3em;" %>
+  <% truths = [['real', 'exists, breathes, hopes, & loves'],
+               ['fake', 'pretends, acts, hides, & dies']] %>
+  <%= f.select "truth",
+               options_for_select(truths.map{ |t|
+                                      name, desc = t
+                                      [ "#{name} - #{desc}",
+                                        name,
+                                        { "data-html" => raw("<strong>#{name}</strong> - #{desc}") }
+                                      ]
+                                  },
+                                  f.object.truth),
+               {}, {} %>
+  </div>
+
+  <div class="boxline" style="margin-bottom: 2px;">
   <%= f.label :tags_a, "Tags:", :class => "required",
     :style => "line-height: 2.3em;" %>
   <%= f.select "tags_a", options_for_select(

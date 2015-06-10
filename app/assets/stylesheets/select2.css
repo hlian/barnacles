@@ -47,8 +47,6 @@ Version: @@ver@@ Timestamp: @@timestamp@@
     overflow: hidden;
     white-space: nowrap;
     position: relative;
-    height: 26px;
-    line-height: 26px;
     padding: 0 0 0 8px;
     color: #444;
     text-decoration: none;
@@ -237,7 +235,6 @@ Version: @@ver@@ Timestamp: @@timestamp@@
   max-height: 200px;
 }
 .select2-container .select2-results li {
-  line-height: 80%;
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;

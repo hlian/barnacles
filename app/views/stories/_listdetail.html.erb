@@ -30,6 +30,11 @@ class="story <%= story.vote == 1 ? "upvoted" : "" %> <%= story.vote == -1 ?
     <div class="meta">
       <span class="tags">
         <a class="tag tag_username" href="/u/<%= story.user.username %>"><%= story.user.username %></a>
+
+        <% unless story.truth %>
+        <a class="tag tag_truth">fake</a>
+        <% end %>
+
         <% story.taggings.sort_by{|t| t.tag.tag }.sort_by{|t|
         t.tag.is_media?? -1 : 0 }.each do |tagging| %>
           <a href="<%= tag_url(tagging.tag.tag) %>"
