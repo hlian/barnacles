@@ -277,6 +277,7 @@ private
       :title, :url, :description, :moderation_reason, :seen_previous,
       :merge_story_short_id, :truth, :tags_a => [],
     )
+    p[:truth] = (p[:truth] == "real")
 
     if @user.is_moderator?
       p
