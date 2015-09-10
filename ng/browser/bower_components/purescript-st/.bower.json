@@ -1,0 +1,36 @@
+{
+  "name": "purescript-st",
+  "homepage": "https://github.com/purescript/purescript-st",
+  "description": "The ST effect, for safe local mutation",
+  "keywords": [
+    "purescript"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-st.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "gulpfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-eff": "^0.1.0"
+  },
+  "version": "0.1.0",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.0",
+    "commit": "d8e9bb82ae43b0987b075ac55b5070b0d40a5a51"
+  },
+  "_source": "git://github.com/purescript/purescript-st.git",
+  "_target": "^0.1.0",
+  "_originalSource": "purescript-st"
+}

@@ -12,31 +12,37 @@ module Thermite
   , componentWillMount
   , createClass
   , displayName
-  , render
-  , renderTo
   ) where
 
+import Prelude
+
 import DOM
+import DOM.Node.Types
 
 import Data.Maybe
 
 import Control.Monad.Eff
+import Control.Monad.Eff.Unsafe
 
-import Thermite.Html
-import Thermite.Internal
-import Thermite.Types
 import Thermite.Action
+
+import Unsafe.Coerce
 
 -- | A type synonym for action handlers, which take an action and the current properties
 -- | for the component, and return a computation in the `Action` monad.
 type PerformAction eff state props action = props -> action -> Action eff state Unit
 
--- | A rendering function, which takes a `Context`, the current state and properties, an array
--- | of child nodes and returns a HTML document.
-type Render eff state props action = Context state action -> state -> props -> [Html eff] -> Html eff
+-- | A rendering function, which takes a event dispatcher function, the current state and
+-- | props, an arrayof child nodes and returns a HTML document.
+type Render eff state props action = 
+     (action -> React.EventHandlerContext eff props state Unit) -> 
+     state -> 
+     props -> 
+     Array React.ReactElement -> 
+     React.ReactElement
 
 -- | A component specification, which can be passed to `createClass`.
--- | 
+-- |
 -- | A minimal `Spec` can be built using `simpleSpec`, and extended with optional arguments
 -- | using functions in the `Thermite` module.
 newtype Spec eff state props action = Spec (SpecRecord eff state props action)
@@ -58,10 +64,10 @@ type SpecRecord eff state props action =
 -- |
 -- | A `Spec` created using this function can be extended with optional properties using other functions
 -- | in this module.
-simpleSpec :: forall eff state props action. 
-                state -> 
-                PerformAction eff state props action -> 
-                Render eff state props action -> 
+simpleSpec :: forall eff state props action.
+                state ->
+                PerformAction eff state props action ->
+                Render eff state props action ->
                 Spec eff state props action
 simpleSpec initialState performAction render = Spec { initialState: initialState
                                                     , performAction: performAction
@@ -78,52 +84,32 @@ componentWillMount action (Spec spec) = Spec (spec { componentWillMount = Just a
 displayName :: forall eff state props action. String -> Spec eff state props action -> Spec eff state props action
 displayName name (Spec spec) = Spec (spec { displayName = Just name })
 
-foreign import createClassImpl 
-  "function createClassImpl(runAction) {\
-  \  return function(maybe) {\
-  \    return function(spec) {\
-  \      return React.createClass({\
-  \        getInitialState: function() {\
-  \          return {\
-  \            value: spec.initialState\
-  \          };\
-  \        },\
-  \        performAction: function(action) {\
-  \          runAction(this)(spec.performAction(this.props)(action))();\
-  \        },\
-  \        render: function() {\
-  \          var children = Array.isArray(this.props.children) ? this.props.children : [this.props.children];\
-  \          return spec.render(this)(this.state.value)(this.props)(children);\
-  \        },\
-  \        componentWillMount: function() {\
-  \          var self = this;\
-  \          maybe(function() { })(function(action) {\
-  \            return function() {\
-  \              self.performAction(action);\
-  \            };\
-  \          })(spec.componentWillMount)();\
-  \        },\
-  \        displayName: maybe(undefined)(function(a) {\
-  \          return a;\
-  \        })(spec.displayName)\
-  \      })\
-  \    };\
-  \  };\
-  \}" :: forall eff state props action. (Context state action -> Action eff state Unit -> Eff eff Unit) ->
-                                        (forall a r. r -> (a -> r) -> Maybe a -> r) ->
-                                        Spec eff state props action ->
-                                        ComponentClass props eff
-
 -- | Create a component class from a `Spec`.
-createClass :: forall eff state props action. Spec eff state props action -> ComponentClass props eff
-createClass = createClassImpl runAction maybe
-
--- | Render a component class to the document body.
-render :: forall props eff. ComponentClass props eff -> props -> Eff (dom :: DOM | eff) Unit
-render cc props = do
-  body <- documentBody
-  renderTo body cc props
-
--- | Render a component class to the specified node.
-renderTo :: forall props eff. Node -> ComponentClass props eff -> props -> Eff (dom :: DOM | eff) Unit
-renderTo = renderToImpl
+createClass :: forall eff state props action. Spec eff state props action -> React.ReactClass props
+createClass (Spec spec) = React.createClass $ (React.spec spec.initialState render) 
+                                                { displayName = displayName_
+                                                , componentWillMount = componentWillMount_
+                                                }
+  where
+  displayName_ :: String
+  displayName_ = fromMaybe "" spec.displayName
+  
+  componentWillMount_ :: forall eff. React.ReactThis props state -> Eff ( props :: React.ReactProps props
+                                                                        , state :: React.ReactState (React.Read React.Write) state
+                                                                        , refs :: React.ReactRefs React.Disallowed | eff
+                                                                        ) Unit
+  componentWillMount_ ctx = maybe (return unit) (unsafeInterleaveEff <<< dispatch ctx) spec.componentWillMount
+      
+  unsafeInterleaveAction :: forall eff1 eff2 state a. Action eff1 state a -> Action eff2 state a
+  unsafeInterleaveAction = unsafeCoerce
+      
+  dispatch :: React.ReactThis props state -> action -> React.EventHandlerContext eff props state Unit
+  dispatch this action = do
+    props <- React.getProps this
+    runAction this $ unsafeInterleaveAction $ spec.performAction props action
+      
+  render :: React.Render props state eff
+  render this = spec.render (dispatch this)
+                  <$> React.readState this 
+                  <*> React.getProps this 
+                  <*> React.getChildren this

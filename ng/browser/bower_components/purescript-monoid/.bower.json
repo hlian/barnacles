@@ -6,29 +6,32 @@
     "purescript"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-bifunctors.git"
+  },
   "ignore": [
     "**/.*",
     "bower_components",
     "node_modules",
     "output",
-    "tests",
-    "tmp",
+    "test",
     "bower.json",
-    "Gruntfile.js",
+    "gulpfile.js",
     "package.json"
   ],
   "dependencies": {
-    "purescript-maybe": "~0.2.1",
-    "purescript-arrays": "~0.3.0"
+    "purescript-control": "^0.3.0",
+    "purescript-invariant": "^0.3.0"
   },
-  "version": "0.2.0",
-  "_release": "0.2.0",
+  "version": "0.3.0",
+  "_release": "0.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.2.0",
-    "commit": "149be6fc9a3a190949f35ddbfe1183a664fec378"
+    "tag": "v0.3.0",
+    "commit": "d6db1a67c25cda4961b50f65a003cae0b0657384"
   },
   "_source": "git://github.com/purescript/purescript-monoid.git",
-  "_target": "~0.2.0",
+  "_target": "^0.3.0",
   "_originalSource": "purescript-monoid"
 }

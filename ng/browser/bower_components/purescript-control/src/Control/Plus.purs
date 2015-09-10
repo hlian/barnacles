@@ -2,6 +2,8 @@
 
 module Control.Plus where
 
+import Prelude
+
 import Control.Alt
 
 -- | The `Plus` type class extends the `Alt` type class with a value that
@@ -18,3 +20,6 @@ import Control.Alt
 -- | - Annihilation: `f <$> empty == empty`
 class (Alt f) <= Plus f where
   empty :: forall a. f a
+
+instance plusArray :: Plus Array where
+  empty = []

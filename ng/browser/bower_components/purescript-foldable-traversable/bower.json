@@ -1,0 +1,34 @@
+{
+  "name": "purescript-foldable-traversable",
+  "homepage": "https://github.com/purescript/purescript-foldable-traversable",
+  "description": "Classes for foldable and traversable data structures",
+  "keywords": [
+    "purescript",
+    "foldable",
+    "traversable"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-foldable-traversable.git"
+  },
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "examples",
+    "node_modules",
+    "output",
+    "test",
+    "bower.json",
+    "gulpfile.js",
+    "package.json"
+  ],
+  "dependencies": {
+    "purescript-bifunctors": "^0.4.0",
+    "purescript-maybe": "^0.3.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^0.1.0",
+    "purescript-assert": "^0.1.0"
+  }
+}

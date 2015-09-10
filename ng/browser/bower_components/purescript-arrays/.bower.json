@@ -6,29 +6,35 @@
     "purescript"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/purescript/purescript-arrays.git"
+  },
   "ignore": [
     "**/.*",
     "bower_components",
     "node_modules",
     "output",
-    "tests",
-    "tmp",
     "bower.json",
-    "Gruntfile.js",
     "package.json"
   ],
   "dependencies": {
-    "purescript-maybe": "~0.2.0",
-    "purescript-control": "~0.2.0"
+    "purescript-foldable-traversable": "^0.4.0",
+    "purescript-st": "^0.1.0",
+    "purescript-tuples": "^0.4.0"
   },
-  "version": "0.3.7",
-  "_release": "0.3.7",
+  "devDependencies": {
+    "purescript-assert": "^0.1.0",
+    "purescript-console": "^0.1.0"
+  },
+  "version": "0.4.2",
+  "_release": "0.4.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.7",
-    "commit": "7d2119130ca9b343785b658fb92102f591d2b280"
+    "tag": "v0.4.2",
+    "commit": "a19f127a6c3d24eb41a3cc873bd3244c2b31ff2c"
   },
   "_source": "git://github.com/purescript/purescript-arrays.git",
-  "_target": "~0.3.0",
+  "_target": "^0.4.0",
   "_originalSource": "purescript-arrays"
 }

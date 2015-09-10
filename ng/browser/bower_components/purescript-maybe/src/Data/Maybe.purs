@@ -1,10 +1,14 @@
 module Data.Maybe where
 
-import Control.Alt
-import Control.Alternative
-import Control.Extend
-import Control.MonadPlus
-import Control.Plus
+import Prelude
+
+import Control.Alt (Alt)
+import Control.Alternative (Alternative)
+import Control.Extend (Extend)
+import Control.MonadPlus (MonadPlus)
+import Control.Plus (Plus)
+import Data.Functor.Invariant (Invariant, imapF)
+import Data.Monoid (Monoid)
 
 -- | The `Maybe` type is used to represent optional values and can be seen as
 -- | something like a type-safe `null`, where `Nothing` is `null` and `Just x`
@@ -23,6 +27,19 @@ maybe :: forall a b. b -> (a -> b) -> Maybe a -> b
 maybe b _ Nothing = b
 maybe _ f (Just a) = f a
 
+-- | Similar to `maybe` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `maybe` has
+-- | to evaluate the default value before returning the result, whereas here
+-- | the value is only computed when the `Maybe` is known to be `Nothing`.
+-- |
+-- | ``` purescript
+-- | maybe' (\_ -> x) f Nothing == x
+-- | maybe' (\_ -> x) f (Just y) == f y
+-- | ```
+maybe' :: forall a b. (Unit -> b) -> (a -> b) -> Maybe a -> b
+maybe' g _ Nothing = g unit
+maybe' _ f (Just a) = f a
+
 -- | Takes a default value, and a `Maybe` value. If the `Maybe` value is
 -- | `Nothing` the default value is returned, otherwise the value inside the
 -- | `Just` is returned.
@@ -33,6 +50,18 @@ maybe _ f (Just a) = f a
 -- | ```
 fromMaybe :: forall a. a -> Maybe a -> a
 fromMaybe a = maybe a (id :: forall a. a -> a)
+
+-- | Similar to `fromMaybe` but for use in cases where the default value may be
+-- | expensive to compute. As PureScript is not lazy, the standard `fromMaybe`
+-- | has to evaluate the default value before returning the result, whereas here
+-- | the value is only computed when the `Maybe` is known to be `Nothing`.
+-- |
+-- | ``` purescript
+-- | fromMaybe' (\_ -> x) Nothing == x
+-- | fromMaybe' (\_ -> x) (Just y) == y
+-- | ```
+fromMaybe' :: forall a. (Unit -> a) -> Maybe a -> a
+fromMaybe' a = maybe' a (id :: forall a. a -> a)
 
 -- | Returns `true` when the `Maybe` value was constructed with `Just`.
 isJust :: forall a. Maybe a -> Boolean
@@ -55,11 +84,11 @@ isNothing = maybe true (const false)
 -- | f <$> Nothing == Nothing
 -- | ```
 instance functorMaybe :: Functor Maybe where
-  (<$>) fn (Just x) = Just (fn x)
-  (<$>) _  _        = Nothing
+  map fn (Just x) = Just (fn x)
+  map _  _        = Nothing
 
 -- | The `Apply` instance allows functions contained within a `Just` to
--- | transform a value contained within a `Just` using the `(<*>)` operator:
+-- | transform a value contained within a `Just` using the `apply` operator:
 -- |
 -- | ``` purescript
 -- | Just f <*> Just x == Just (f x)
@@ -90,8 +119,8 @@ instance functorMaybe :: Functor Maybe where
 -- | f <$> Nothing <*> Nothing == Nothing
 -- | ```
 instance applyMaybe :: Apply Maybe where
-  (<*>) (Just fn) x = fn <$> x
-  (<*>) Nothing   _ = Nothing
+  apply (Just fn) x = fn <$> x
+  apply Nothing   _ = Nothing
 
 -- | The `Applicative` instance enables lifting of values into `Maybe` with the
 -- | `pure` or `return` function (`return` is an alias for `pure`):
@@ -126,8 +155,8 @@ instance applicativeMaybe :: Applicative Maybe where
 -- | Nothing <|> Nothing == Nothing
 -- | ```
 instance altMaybe :: Alt Maybe where
-  (<|>) Nothing r = r
-  (<|>) l       _ = l
+  alt Nothing r = r
+  alt l       _ = l
 
 -- | The `Plus` instance provides a default `Maybe` value:
 -- |
@@ -149,8 +178,8 @@ instance alternativeMaybe :: Alternative Maybe
 -- | Nothing >>= f = Nothing
 -- | ```
 instance bindMaybe :: Bind Maybe where
-  (>>=) (Just x) k = k x
-  (>>=) Nothing  _ = Nothing
+  bind (Just x) k = k x
+  bind Nothing  _ = Nothing
 
 -- | The `Monad` instance guarantees that there are both `Applicative` and
 -- | `Bind` instances for `Maybe`. This also enables the `do` syntactic sugar:
@@ -182,8 +211,11 @@ instance monadPlusMaybe :: MonadPlus Maybe
 -- | f <<= Just x = Just (f x)
 -- | ```
 instance extendMaybe :: Extend Maybe where
-  (<<=) _ Nothing  = Nothing
-  (<<=) f x        = Just (f x)
+  extend _ Nothing  = Nothing
+  extend f x        = Just (f x)
+
+instance invariantMaybe :: Invariant Maybe where
+  imap = imapF
 
 -- | The `Semigroup` instance enables use of the operator `<>` on `Maybe` values
 -- | whenever there is a `Semigroup` instance for the type the `Maybe` contains.
@@ -197,25 +229,37 @@ instance extendMaybe :: Extend Maybe where
 -- | Nothing <> Nothing = Nothing
 -- | ```
 instance semigroupMaybe :: (Semigroup a) => Semigroup (Maybe a) where
-  (<>) Nothing  x        = x
-  (<>) x        Nothing  = x
-  (<>) (Just x) (Just y) = Just (x <> y)
+  append Nothing y = y
+  append x Nothing = x
+  append (Just x) (Just y) = Just (x <> y)
 
--- | The `Show` instance allows `Maybe` values to be rendered as a string with
--- | `show` whenever there is an `Show` instance for the type the `Maybe`
--- | contains.
-instance showMaybe :: (Show a) => Show (Maybe a) where
-  show (Just x) = "Just (" ++ show x ++ ")"
-  show Nothing  = "Nothing"
+instance monoidMaybe :: (Semigroup a) => Monoid (Maybe a) where
+  mempty = Nothing
+
+instance semiringMaybe :: (Semiring a) => Semiring (Maybe a) where
+  add x y = add <$> x <*> y
+  one = Just one
+  mul x y = mul <$> x <*> y
+  zero = Just zero
+
+instance moduloSemiringMaybe :: (ModuloSemiring a) => ModuloSemiring (Maybe a) where
+  mod x y = mod <$> x <*> y
+  div x y = div <$> x <*> y
+
+instance ringMaybe :: (Ring a) => Ring (Maybe a) where
+  sub x y = sub <$> x <*> y
+
+instance divisionRingMaybe :: (DivisionRing a) => DivisionRing (Maybe a)
+
+instance numMaybe :: (Num a) => Num (Maybe a)
 
 -- | The `Eq` instance allows `Maybe` values to be checked for equality with
 -- | `==` and inequality with `/=` whenever there is an `Eq` instance for the
 -- | type the `Maybe` contains.
 instance eqMaybe :: (Eq a) => Eq (Maybe a) where
-  (==) Nothing   Nothing   = true
-  (==) (Just a1) (Just a2) = a1 == a2
-  (==) _         _         = false
-  (/=) a b = not (a == b)
+  eq Nothing   Nothing   = true
+  eq (Just a1) (Just a2) = a1 == a2
+  eq _         _         = false
 
 -- | The `Ord` instance allows `Maybe` values to be compared with
 -- | `compare`, `>`, `>=`, `<` and `<=` whenever there is an `Ord` instance for
@@ -227,3 +271,21 @@ instance ordMaybe :: (Ord a) => Ord (Maybe a) where
   compare Nothing  Nothing  = EQ
   compare Nothing  _        = LT
   compare _        Nothing  = GT
+
+instance boundedMaybe :: (Bounded a) => Bounded (Maybe a) where
+  top = Just top
+  bottom = Nothing
+
+instance boundedOrdMaybe :: (BoundedOrd a) => BoundedOrd (Maybe a)
+
+instance booleanAlgebraMaybe :: (BooleanAlgebra a) => BooleanAlgebra (Maybe a) where
+  conj x y = conj <$> x <*> y
+  disj x y = disj <$> x <*> y
+  not = map not
+
+-- | The `Show` instance allows `Maybe` values to be rendered as a string with
+-- | `show` whenever there is an `Show` instance for the type the `Maybe`
+-- | contains.
+instance showMaybe :: (Show a) => Show (Maybe a) where
+  show (Just x) = "Just (" ++ show x ++ ")"
+  show Nothing  = "Nothing"

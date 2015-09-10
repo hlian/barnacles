@@ -11,6 +11,6 @@
     "output"
   ],
   "dependencies": {
-    "purescript-thermite": "https://github.com/paf31/purescript-thermite.git#~0.7.1"
+    "purescript-react": "^0.0.5"
   }
 }
