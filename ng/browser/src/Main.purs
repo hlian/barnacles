@@ -1,37 +1,50 @@
 module Main where
 
-import qualified Thermite as T
-import qualified Thermite.Html as T
-import qualified Thermite.Html.Elements as T
-import qualified Thermite.Html.Attributes as A
-import qualified Thermite.Action as T
-import qualified Thermite.Events as T
-import qualified Thermite.Types as T
+import Prelude
+import Control.Monad.Eff
+import Data.Maybe
+import Data.Nullable
 
-import Debug.Trace
+import qualified Thermite as T
+import qualified Thermite.Action as T
+import qualified React as R
+import qualified React.DOM as R
+import qualified React.DOM.Props as RP
+
+import qualified DOM as DOM
+import qualified DOM.HTML as DOM
+import qualified DOM.HTML.Document as DOM
+import qualified DOM.HTML.Types as DOM
+import qualified DOM.HTML.Window as DOM
+import qualified DOM.Node.Types as DOM
+
+import Control.Monad.Eff.Console
 
 data Action = Increment | Decrement
-type State = { counter :: Number }
+type State = { counter :: Int }
 
 initialState :: State
 initialState = { counter: 0 }
 
 render :: T.Render _ State _ Action
-render context state _ _ =
-  T.div' [counter, buttons]
+render send s _ _ = R.div' [ counter, buttons ]
   where
-    counter :: T.Html _
-    counter =
-      T.p' [ T.text "Value: "
-           , T.text (show state.counter)
-           ]
+  counter :: R.ReactElement
+  counter =
+    R.p'
+      [ R.text "Value: "
+      , R.text $ show s.counter
+      ]
 
-    buttons :: T.Html _
-    buttons = T.p' [ T.button (T.onClick context (const Increment)) [T.text "Increment"]
-                   , T.button (T.onClick context (const Decrement)) [T.text "Decrement"]
-                   ]
+  buttons :: R.ReactElement
+  buttons =
+    R.p'
+      [ R.button [ RP.onClick \_ -> send Increment ]
+                 [ R.text "Increment" ]
+      , R.button [ RP.onClick \_ -> send Decrement ]
+                 [ R.text "Decrement" ]
+      ]
 
-performAction :: T.PerformAction _ State _ Action
 performAction _ Increment = T.modifyState \o -> { counter: o.counter + 1 }
 performAction _ Decrement = T.modifyState \o -> { counter: o.counter - 1 }
 
@@ -40,5 +53,16 @@ spec =
   T.simpleSpec initialState performAction render
 
 main = do
-  trace "Hello sailor!"
-  T.render (T.createClass spec) {}
+  print "Hello sailor!"
+  body' <- body
+  case R.render (R.createFactory (T.createClass spec) {}) <$> body' of
+    Nothing -> print "nothing :("
+    Just something -> void something
+
+  where
+  body :: forall eff. Eff (dom :: DOM.DOM | eff) (Maybe DOM.Element)
+  body = do
+    win <- DOM.window
+    doc <- DOM.document win
+    elm <- toMaybe <$> DOM.body doc
+    return (DOM.htmlElementToElement <$> elm)
