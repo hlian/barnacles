@@ -351,7 +351,12 @@ class Comment < ActiveRecord::Base
   end
 
   def score
-    self.upvotes - self.downvotes
+    ## apologies in advance: this sometimes returns a real, and sometimes returns an int :(
+    if self.downvotes > 0
+      return self.upvotes - self.downvotes * 0.1
+    else
+      return self.upvotes
+    end
   end
 
   def short_id_url
@@ -379,7 +384,7 @@ class Comment < ActiveRecord::Base
 
     r_counts.keys.sort.map{|k|
       k == "" ? "+#{r_counts[k]}" : "#{r_counts[k]} #{Vote::COMMENT_REASONS[k]}"
-    }.join(", ")
+    }.join("; ")
   end
 
 

@@ -3,20 +3,12 @@ class Vote < ActiveRecord::Base
   belongs_to :story
 
   COMMENT_REASONS = {
-    "O" => "Off-topic",
-    "I" => "Incorrect",
-    "M" => "Me-too",
-    "T" => "Troll",
-    "S" => "Spam",
+    "C" => "Ian Likes Cereal",
     "" => "Cancel",
   }
 
   STORY_REASONS = {
-    "O" => "Off-topic",
-    "A" => "Already Posted",
-    "T" => "Poorly Tagged",
-    "L" => "Poorly Titled",
-    "S" => "Spam",
+    "C" => "Ian Likes Cereal",
     "" => "Cancel",
   }
   OLD_STORY_REASONS = {
@@ -118,7 +110,7 @@ class Vote < ActiveRecord::Base
         if v.comment_id
           c = Comment.find(v.comment_id)
           if c.user_id != user_id
-            User.update_counters c.user_id, :karma => upvote - downvote
+            User.update_counters c.user_id, :karma => upvote
           end
 
           c.give_upvote_or_downvote_and_recalculate_confidence!(upvote,
@@ -126,7 +118,7 @@ class Vote < ActiveRecord::Base
         else
           s = Story.find(v.story_id)
           if s.user_id != user_id
-            User.update_counters s.user_id, :karma => upvote - downvote
+            User.update_counters s.user_id, :karma => upvote
           end
 
           s.give_upvote_or_downvote_and_recalculate_hotness!(upvote, downvote)
