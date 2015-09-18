@@ -119,8 +119,10 @@ class User < ActiveRecord::Base
     true
   end
 
+  @@downvotable = ["ht4bhi", "8nh8sf"].to_set
+
   def can_downvote?(obj)
-    if obj.is_a?(Comment) && obj.short_id == "8nh8sf"
+    if obj.is_a?(Comment) && @@downvotable.include?(obj.short_id)
       return true
     end
     return false
