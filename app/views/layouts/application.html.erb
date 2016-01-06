@@ -44,7 +44,7 @@
           "/hottest" => "Rowdiest",
           "/comments" => "Talk of the Town",
           "/search" => "Search",
-          "https://ianthehenry.com/basilica/" => "Basilica",
+          "https://ianthehenry.com/basilica/" => "Basilica (As Seen On Hacker News)",
         } %>
 
         <% if @cur_url.present? && !links.keys.include?(@cur_url) &&
@@ -72,8 +72,8 @@
           <% new_replies_title = new_replies ? "You have new replies!" : "All quiet on the replies front." %>
           <% title = notification_count > 0 ? "You have new messages!" : "All quiet on the message front." %>
 
-          <a href="/threads" class="<%= new_replies %>" title="<%= new_replies_title %>">Your Replies</a>
-          <a href="/messages" class="<%= cur_url.length > 0 ? cur_url : new_messages %>" title="<%= title %>">Your Messages</a>
+          <a href="/threads" class="<%= new_replies %>" title="<%= new_replies_title %>">✍ Replies</a>
+          <a href="/messages" class="<%= cur_url.length > 0 ? cur_url : new_messages %>" title="<%= title %>">✉ Messages</a>
 
           <a href="/settings" <%= @cur_url == "/settings" ?
             raw("class=\"cur_url\"") : "" %>><%= @user.username %>
