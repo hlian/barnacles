@@ -23,6 +23,7 @@ gem "bcrypt", "~> 3.1.2"
 gem "nokogiri", "= 1.6.1"
 gem "htmlentities"
 gem "rdiscount"
+gem 'kramdown'
 
 # for twitter-posting bot
 gem "oauth"
@@ -45,3 +46,6 @@ gem "world-flags"
 gem "typogruby"
 gem "rack-reverse-proxy"
 gem "puma"
+
+gem "newrelic_rpm"
+gem "rouge"

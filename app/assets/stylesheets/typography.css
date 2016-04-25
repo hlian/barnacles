@@ -1,10 +1,10 @@
-html, input, button {
+html, input, button, textarea {
 	font-family: "source sans pro", "helvetica", arial, sans-serif;
+    font-size: 1rem;
 	color: #222;
 }
 
-textarea, code {
-	font-size: 0.9rem;
+code {
 	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
 }
 

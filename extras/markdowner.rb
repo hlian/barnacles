@@ -1,5 +1,11 @@
+require 'kramdown'
 require 'nokogiri'
 require 'uri'
+
+def to_markdown(text)
+  opts = {syntax_highlighter: :rouge}
+  return Kramdown::Document.new(text.to_s, **opts).to_html
+end
 
 class Markdowner
   # opts[:allow_images] allows <img> tags
@@ -10,15 +16,10 @@ class Markdowner
       return ""
     end
 
-    args = [ :smart, :autolink, :safelink, :filter_styles, :filter_html ]
-    if !opts[:allow_images]
-      args.push :no_image
-    end
-
-    html = RDiscount.new(text.to_s, *args).to_html
+    html = to_markdown(text.to_s)
 
     # change <h1> headings to just emphasis tags
-    html.gsub!(/<(\/)?h(\d)>/) {|_| "<#{$1}strong>" }
+    html.gsub!(/<(\/)?h(\d).*?>/) {|_| "<#{$1}strong>" }
 
     # fix links that got the trailing punctuation appended to move it outside
     # the link
@@ -89,4 +90,4 @@ FINEOK
   end
 end
 
-puts Markdowner.to_html(ARGF.read)
+# puts Markdowner.to_html(ARGF.read)
