@@ -1,11 +1,9 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module API where
 
-import Data.Text (Text)
-import Data.Aeson (ToJSON(..), object, (.=))
-
-import BasePrelude
+import P
 import DB
 import Models
 import Utils
@@ -16,29 +14,24 @@ data Home = Home {
   , _homeStories :: [Story]
 }
 
+deriveToJSON (reasonableAesonOptions "_home") ''Home
+
 newtype APIStory = APIStory Story
 data APIError = APIError Text [(Text, Text)]
 
 instance ToJSON APIStory where
   toJSON (APIStory story@Story{..}) =
-    object [ "id" .= routeOfStory story
-           , "title" .= _storyTitle
-           , "url" .= _storyURL
-           , "body" .= _storyBody
-           , "whisks" .= _storyWhisks
+    object [ "id" .:= routeOfStory story
+           , "title" .:= _storyTitle
+           , "url" .:= _storyURL
+           , "body" .:= _storyBody
+           , "whisks" .:= _storyWhisks
            ]
 
 instance ToJSON APIError where
   toJSON (APIError e params) =
-    object [ "error" .= e
-           , "params" .= object (uncurry (.=) <$> params)
-           ]
-
-instance ToJSON Home where
-  toJSON Home{..} =
-    object [ "ad" .= _homeAd
-           , "intro" .= _homeIntro
-           , "stories" .= (APIStory <$> _homeStories)
+    object [ "error" .:= e
+           , "params" .:= object (uncurry (.:=) <$> params)
            ]
 
 routeOfStory :: Story -> Text

@@ -1,15 +1,13 @@
 module Models where
 
-import BasePrelude
-import Data.Map ((!))
-import Database.MySQL.Simple.QueryResults
-
-import Data.Text (Text)
-import Database.MySQL.Base.Types (fieldName)
-import Database.MySQL.Simple.Result (convert)
-
+import           Data.Map ((!))
 import qualified Data.Map as Map
 import qualified Data.Text as Text
+import           Database.MySQL.Base.Types (fieldName)
+import           Database.MySQL.Simple.Result (convert)
+
+import           Database.MySQL.Simple.QueryResults
+import           P
 
 data Story =
   Story { _storyID :: Integer
@@ -19,6 +17,8 @@ data Story =
         , _storyWhisks :: Integer
         }
   deriving (Show)
+
+deriveToJSON (reasonableAesonOptions "_story") ''Story
 
 ensure :: (a -> Bool) -> a -> Maybe a
 ensure predicate x =
@@ -38,6 +38,6 @@ instance QueryResults Story where
       mbsMap =
         Map.fromList (zip (fieldName <$> fields) mbs)
       valueOf key =
-        convert (fieldsMap ! key) (join $ Map.lookup key mbsMap)
+        convert (fieldsMap ! key) (join $ mbsMap ^. at key)
       k key =
         maybe (Left ("No key found for " <> key)) Right (valueOf key)

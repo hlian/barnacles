@@ -1,4 +1,4 @@
-module Server where
+module Main where
 
 import Data.Aeson (encode)
 import Network.HTTP.Types (status200, status400)

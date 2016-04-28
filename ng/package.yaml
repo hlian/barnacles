@@ -1,0 +1,38 @@
+name:
+  barnacles
+version:
+  2.0.0
+synopsis:
+  A server for winners
+license:
+  MIT
+author:
+  Hao Lian
+maintainer:
+  hi@haolian.org
+default-extensions:
+  - OverloadedLists
+  - OverloadedStrings
+  - NoImplicitPrelude
+  - TemplateHaskell
+dependencies:
+  - aeson
+  - base
+  - base-prelude
+  - bytestring
+  - containers
+  - http-types
+  - lens
+  - lucid
+  - mysql
+  - mysql-simple
+  - template-haskell
+  - text
+  - wai
+  - warp
+executables:
+  barnacles:
+    main:
+      Server.hs
+    source-dirs:
+      src
