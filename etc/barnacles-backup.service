@@ -1,0 +1,9 @@
+[Unit]
+Description=barnacles backup
+
+[Service]
+Type=simple
+User=hao
+Group=hao
+WorkingDirectory=/data/barnacles-backup/
+ExecStart=/data/barnacles-backup/backup.sh

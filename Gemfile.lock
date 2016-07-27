@@ -46,8 +46,6 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.3.0)
-    faker (1.4.3)
-      i18n (~> 0.5)
     feed-normalizer (1.5.2)
       hpricot (>= 0.6)
       simple-rss (>= 1.1)

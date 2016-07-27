@@ -1,0 +1,13 @@
+[Unit]
+Description=Barnacles Puma Server
+After=network.target
+
+[Service]
+Type=simple
+User=hao
+Restart=always
+ExecStart=/home/hao/bundle exec --keep-file-descriptors puma -C /data/barnacles/config/puma.rb
+WorkingDirectory=/data/barnacles
+
+[Install]
+WantedBy=multi-user.target
