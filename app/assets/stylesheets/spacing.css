@@ -1,15 +1,10 @@
-ol.stories.list li.story div.story_liner {
-	padding-bottom: 0.5rem;
-}
-
 .details {
-	margin-left: 55px;
-	margin-right: 40px;
+	margin-left: 30px;
 }
 
 .details .domain {
     padding-left: 10px;
-    display: inlineblock;
+    display: inline-block;
 }
 
 .details .tags {
@@ -53,7 +48,7 @@ li .domain::after {
 }
 
 body {
-	line-height: 1.3;
+	line-height: 1.2;
 }
 
 .link .dquo {
@@ -75,3 +70,15 @@ body {
 blockquote {
     margin-left: 2rem;
 }
+
+/* outliners */
+
+div#wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px 10px;
+	max-width: 600px;
+    width: 100%;
+    background: white;
+}
+

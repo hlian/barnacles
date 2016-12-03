@@ -11,13 +11,13 @@
 
 .has-fancy-underline .link a {
     text-decoration: none;
-    background-size: 1px 4px;
-    background-position: 0 88%;
+    background-size: 1px 2px;
+    background-position: 0 100%;
     background-repeat: repeat-x;
     text-shadow: 2px 0 white, 1px 0 white, -1px 0 white, -2px 0 white;
 
-    color: #0074d9;
-    background-image: linear-gradient(to bottom, transparent 49%, #0074d9 50%);
+    color: #134457;
+    background-image: linear-gradient(to bottom, transparent 49%, #134457 50%);
 }
 
 *::selection {

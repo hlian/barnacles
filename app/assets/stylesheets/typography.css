@@ -17,7 +17,7 @@ h2.commentsbegin {
     font-size: 1rem;
 }
 
-a.tag, li .domain {
+a.tag, li .domain, .comments_link {
 	font-family: 'Ubuntu Mono', Menlo, Consolas, monospace;
     font-size: 0.8rem;
 }
@@ -36,8 +36,8 @@ div.voters div.score {
 }
 
 li .link a {
-    font-size: 1.4rem;
-    font-family: "alegreya", "source sans pro", "helvetica", arial, sans-serif;
+    font-size: 1rem;
+    font-family: "source sans pro", "helvetica", arial, sans-serif;
 }
 
 @media only screen and (min-device-width: 0px) {

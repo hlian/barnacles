@@ -10,6 +10,7 @@
  *= require typography
  *= require mobile
  *= require downvote_why
+ *= require spoilers
 */
 
 
@@ -21,7 +22,7 @@ html {
 }
 
 body {
-    background-image: url(<%= asset_path 'geometry2.png' %>);
+    background-color: #033447;
 }
 
 a {
@@ -37,7 +38,6 @@ h1 {
 
 h2.commentsbegin {
     margin: 0;
-    margin-left: 55px;
     margin-top: 2rem;
 }
 
@@ -117,7 +117,6 @@ pre {
 	padding-left: 5px;
     padding-top: 5px:
     padding-bottom: 5px:
-    line-height: 1.1;
 }
 
 
@@ -128,11 +127,9 @@ button,
 select,
 textarea {
 	color: #555;
-	line-height: 1.2em;
 	padding: 3px 5px;
 }
 textarea {
-	line-height: 1.35em;
 	resize: vertical;
 }
 input[type="text"],
@@ -237,25 +234,11 @@ input:disabled, button:disabled {
 }
 
 
-/* outliners */
-
-div#wrapper {
-	margin-left: auto;
-	margin-right: auto;
-	padding-bottom: 2em;
-	max-width: 1000px;
-	width: 100%;
-}
-div#inside {
-	margin-left: 0.25em;
-	margin-right: 0.25em;
-}
 
 
 /* header */
 
 #header {
-    margin-left: 29px;
     margin-bottom: 2rem;
 }
 
@@ -400,7 +383,6 @@ ol.search_results {
 ol.comments {
 	margin-left: 27.5px;
 	margin-bottom: 0em;
-	line-height: 1.35em;
 }
 
 #inside > ol.comments {
@@ -436,12 +418,12 @@ ol.search_results li.story {
 div.voters {
 	float: left;
 	margin-top: 0px;
-	width: 40px;
+    width: 20px;
+    margin-right: -20px;
 }
 
 div.voters div.score {
 	margin-top: 1px;
-	margin-bottom: -3px;
 	text-align: center;
 }
 
@@ -457,8 +439,7 @@ div.voters .downvoter {
 	text-decoration: none;
 	width: 0px;
 	height: 0;
-	margin-bottom: 0px;
-	margin-left: 14px;
+	margin: 0 auto;
 	padding: 0;
 	display: block;
 }
@@ -528,21 +509,18 @@ li div.details {
 }
 
 li .link {
-	font-weight: bold;
 	vertical-align: middle;
 }
 
 li .link a {
-    letter-spacing: -0.25px;
-    margin-right: 7px;
+    color: #033447;
+    border: 2px dashed transparent;
+    margin-left: -2px;
 }
 
 li .link a:active, li .link a:focus {
-    border: 2px dashed red;
-    padding: 5px;
-    margin-left: -7px;
-    margin-top: -7px;
-    background-image: none;
+    border: 2px dashed darkred;
+    padding: 0 2px;
 }
 
 li.story a.tag {
@@ -571,9 +549,7 @@ li .domain a {
 li .byline {
 	color: #888;
 	font-size: 1rem;
-}
-li.story .byline {
-	margin-top: 1px;
+	margin-bottom: 0.25rem;
 }
 li .byline a {
 	color: #888;
@@ -585,11 +561,8 @@ a.comments_link {
     padding: 0.5rem 0;
     display: block;
     text-decoration: none;
-    margin: 1rem 0;
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    margin-left: -55px;
-    padding-left: 55px;
+    margin-left: -30px;
+    padding-left: 30px;
 }
 
 ul.mod {
@@ -598,7 +571,6 @@ ul.mod {
     margin-left: -10px;
     position: relative;
     right: -20px;
-    line-height: 0.9;
     list-style-type: none;
     font-size: 0.6rem;
 }
@@ -696,7 +668,7 @@ div.comment_text {
 div.comment_text blockquote,
 div.markdown_help blockquote {
 	font-style: italic;
-	margin: 0.25rem 0 0 0.5rem;
+	margin: 0.25rem 0 0 0;
 	padding: 0 0 0 1em;
 	border-left: 2px solid gray;
 }
@@ -747,7 +719,6 @@ div.markdown_help {
 div.markdown_help_label {
 	float: right;
 	font-size: 9pt;
-	line-height: 2em;
 	color: #aaa;
 	text-decoration: underline;
 	cursor: pointer;
@@ -783,7 +754,6 @@ div#story_box div.markdown_help_toggler {
 
 div.comment_form_container {
 	max-width: 1000px;
-    margin-left: 55px;
 }
 
 div.comment_form_container form {
@@ -808,7 +778,6 @@ ul.root ul, ul.user_tree ul {
 ul.user_tree li {
 	margin: 0;
 	padding: 0 12px;
-	line-height: 1.5em;
 	/* node */
 	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAUAQMAAACK1e4oAAAABlBMVEUAAwCIiIgd2JB2AAAAAXRSTlMAQObYZgAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9YIBhQIJYVaFGwAAAARSURBVAjXY2hgQIf/GTDFGgDSkwqATqpCHAAAAABJRU5ErkJggg==) no-repeat;
 }
@@ -860,7 +829,6 @@ table.data tr.bold td {
 table.thread td {
 	padding: 0px 0px 0px 3px;
 	margin-bottom: 0px;
-	line-height: 17px;
 	/* text-vertical-align: middle; */
 	overflow: hidden;
 }
@@ -899,7 +867,6 @@ table.data td p:last-child {
 /* boxes */
 .box, .notifications {
 	border: 0;
-	margin-left: 55px;
 	padding: 0;
 }
 
@@ -961,7 +928,6 @@ table.data td p:last-child {
 .box select,
 .box br,
 .box div.d {
-	line-height: 2em;
 }
 .box br {
 	clear: left;
@@ -982,7 +948,6 @@ table.data td p:last-child {
 .box label,
 .box .label_holder {
 	width: 7em;
-	line-height: 2em;
 	vertical-align: middle;
 }
 
@@ -1007,7 +972,6 @@ table.data td p:last-child {
 
 .box .label_holder label,
 .box .label_holder input {
-	line-height: 2.5em;
 	vertical-align: middle;
 }
 
@@ -1080,7 +1044,6 @@ div.flash-success div,
 div.errorExplanation div {
 	margin-top: 5px;
 	margin-bottom: 2px;
-	line-height: 28px;
 }
 div.flash-error,
 div.errorExplanation {
@@ -1128,7 +1091,6 @@ div#flasher {
 div#flasher div.flash-error,
 div#flasher div.flash-notice,
 div#flasher div.flash-success {
-	line-height: 1.5em;
 	display: inline-block;
 	padding-top: 25px;
 	margin-left: auto;

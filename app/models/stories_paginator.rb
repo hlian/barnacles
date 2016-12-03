@@ -1,5 +1,5 @@
 class StoriesPaginator
-  STORIES_PER_PAGE = 10
+  STORIES_PER_PAGE = 30
 
   def initialize(scope, page, user)
     @scope = scope
