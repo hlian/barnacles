@@ -1,5 +1,4 @@
 fieldset.ad {
-    margin-top: -1rem;
     margin-bottom: 2rem;
     border: 1px solid #eee;
 }
@@ -32,4 +31,8 @@ fieldset.ad {
 
 .ad-plug a {
     color: #eee;
+}
+
+@media only screen and (max-width: 480px) {
+    fieldset.ad { display: none; }
 }

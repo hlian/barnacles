@@ -1,32 +1,4 @@
 @media only screen and (max-width: 480px) {
-	html {
-		-webkit-text-size-adjust: none;
-	}
-
-	body {
-		margin: 0;
-		padding: 0;
-	}
-
-	div#header,
-	div#leader {
-		margin: 0;
-		padding: 8px 5px;
-		background-color: #eee;
-		border-bottom: 1px solid #ccc;
-	}
-	div#leader {
-		padding: 8px;
-	}
-
-	div#leader.guess input[type="submit"] {
-	    display: none;
-	}
-
-	div#leader.guess input[type="input"] {
-	    width: 100%;
-	}
-
 	div#wrapper {
 		padding: 0;
 		padding-bottom: 2em;
@@ -35,22 +7,13 @@
 		max-width: 100%;
 	}
 
-	div#headerleft {
-		display: inline;
-		float: none;
-	}
-	div#headerright {
-		display: inline;
-		float: none;
-		text-align: left;
-		margin-top: 0.25em;
-		clear: both;
+	html {
+		-webkit-text-size-adjust: none;
 	}
 
-	.headerlinks a,
-	#headerright .headerlinks a {
-		padding-right: 0.25em;
-		padding-left: 0;
+	body {
+		margin: 0;
+		padding: 0;
 	}
 
 	div#inside {

@@ -1,0 +1,53 @@
+<%# -*- mode: html -*- %>
+
+<div id="headerleft">
+  <a id="l_holder" href="/"
+  title="<%= Rails.application.name %> (<%= @traffic.to_i %>)"></a>
+
+  <% links = {
+    "/" => "Home",
+    "/comments" => "Talk of the Town (count: #{Comment.count})",
+    "/search" => "Search".html_safe,
+    "/hottest" => "Popular",
+    "https://ianthehenry.com/basilica/" => "Basilica",
+  } %>
+
+  <% if @cur_url.present? && !links.keys.include?(@cur_url) &&
+  @heading.present? %>
+    <span id="headertitle">
+      <a href="<%= @cur_url %>"><%= @heading %></a>
+    </span>
+  <% end %>
+
+  <span class="headerlinks">
+    <% links.each do |u,v| %>
+      <a href="<%= u %>" <%= u == @cur_url ? raw("class=\"cur_url\"") :
+        "" %>><%= v %></a>
+    <% end %>
+  </span>
+</div>
+
+<div id="headerright">
+  <span class="headerlinks">
+  <% if @user %>
+    <% cur_url = @cur_url == "/messages" ? "cur_url" : "" %>
+    <% notification_count = Notification.where(:user => @user, :unread => true).count %>
+    <% new_messages = (@user.unread_message_count > 0 or notification_count > 0) ? "new_messages" : "" %>
+    <% new_replies = ReplyMarker.where(:user => @user, :unread => true).any? ? "new_messages" : "" %>
+    <% new_replies_title = new_replies ? "You have new replies!" : "All quiet on the replies front." %>
+    <% title = notification_count > 0 ? "You have new messages!" : "All quiet on the message front." %>
+
+    <a href="/threads" class="<%= new_replies %>" title="<%= new_replies_title %>">✍ Replies</a>
+    <a href="/messages" class="<%= cur_url.length > 0 ? cur_url : new_messages %>" title="<%= title %>">✉ Messages</a>
+
+    <a href="/settings" <%= @cur_url == "/settings" ?
+      raw("class=\"cur_url\"") : "" %>><%= @user.username %> (gamification: <%= @user.karma %>)</a>
+
+    <%= link_to "^D (log out)", { :controller => "login", :action => "logout" },
+      :data => { :confirm => "Are you sure you want to logout?" },
+      :method => "post" %>
+  <% else %>
+    <a href="/login">&sext; Authenticate &sext;</a>
+  <% end %>
+  </span>
+</div>

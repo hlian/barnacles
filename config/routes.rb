@@ -11,7 +11,7 @@ Lobsters::Application.routes.draw do
   constraints do
     scope :format => "html" do
       root :to => "home#newest",
-        :protocol => "https://",
+        :protocol => "http://",
         :as => "root"
 
       get "/rss" => "home#index", :format => "rss"
