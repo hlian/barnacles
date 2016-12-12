@@ -12,7 +12,7 @@
 .has-fancy-underline .link a {
     text-decoration: none;
     background-size: 1px 2px;
-    background-position: 0 100%;
+    background-position: 0 90%;
     background-repeat: repeat-x;
     text-shadow: 2px 0 white, 1px 0 white, -1px 0 white, -2px 0 white;
 
